@@ -25,6 +25,17 @@ if($caller=="self")
 {
 	$erros=array();
 	if(empty($designation_name))      $errors['designation_name']="<font color=red>Empty</font>";
+	else
+	{
+		$q = "select count(*) as total from designation where designation_name='$designation_name'";
+		$qr = mysqli_query($conn,$q) or die($qr.mysqli_error($conn));
+		$r=mysqli_fetch_object($qr);
+		$total=$r->total;
+		if($total>0)
+		{
+			$errors['designation_name'] = "<font color='red'>Duplicate</font>";
+		}
+	}
     if(empty($pay_commission_id))      $errors['pay_commission_id']="<font color=red>Empty</font>";
 	if(empty($pay_scale_id))    $errors['pay_scale_id']="<font color=red>Empty</font>";
 	if(empty($errors))
@@ -39,7 +50,7 @@ if($caller=="self")
 $content="<div class='w3-container w3-blue'>
   <h2>Designation Form</h2>
 </div>
-
+$success
 <form class='w3-container'>
 <p><label>Select Pay Commission</label>
 <select name='pay_commission_id' class='w3-input'>
@@ -55,7 +66,7 @@ $content="<div class='w3-container w3-blue'>
   <label>Designation Name</label>
   <input class='w3-input' type='text' name='designation_name' value='$designation_name'></p>$errors[designation_name]
   <input type='hidden' name='caller' value='self'>
-  <button class='w3-input' type='submit' class='btn btn-lg btn-primary btn-block'>Save</button> 
+  <button class='w3-input' type='submit'>Save</button> 
 </form>";
 $buf=file_get_contents("template.html");
 eval($buf);
