@@ -24,30 +24,25 @@ if($caller=="self")
 		}
 	}
 }
-$content="<section id='blog' class='container'><div class='cp'>
-<div class='row'>
-	 <div class=col-sm-4></div>
-		 <div class=col-sm-4><h4>     Welcome to Change Password</h4>
-			 <form class='center' role='form'>
-				 <fieldset class='password-form'>
-					 <div class='form-group'>
-						 <input type='password' name='pass' placeholder='New Password' class='form-control' value=$pass>$errors[pass]
-					 </div>
-					 <div class='form-group'>
-						 <input type='password' name='pass_confirm' placeholder='Password (Confirm)' class='form-control' value=$pass_confirm>$errors[pass_confirm]
-					 </div>
-					 <div class='form-group'>
-						 <input type=hidden name=caller value=self>
-						 <button class='btn btn-success btn-md btn-block' type=submit>Change</button>
-					 </div>$s
-				 </fieldset>
-			 </form>
-		 </div>
-	 <div class=col-sm-4></div>
-</div></div>
-</section>";
-	
-
+$content="
+<div class='w3-container w3-blue'>
+     <h2>Change Password Form</h2>
+</div>
+$s
+<form class='w3-container'>
+	 <p>
+	     <label> Enter New Password</label>
+	     <input type='password' name='pass' class='w3-input' value=$pass>$errors[pass]
+	 </p>
+	 <p>
+	     <label>Retype Password</label>
+		 <input type='password' name='pass_confirm'  class='w3-input' value=$pass_confirm>$errors[pass_confirm]
+	 </div>
+	 <p>
+		 <input type=hidden name=caller value=self>
+	     <button class='w3-input' type=submit>Change</button>
+	 </p>
+</form>";
 $buff=file_get_contents('template.html');
 eval($buff);
 echo $page;
