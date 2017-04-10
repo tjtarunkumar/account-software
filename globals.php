@@ -4,7 +4,7 @@ include_once"juery.js";
 
 $db_host="localhost";
 $db_user="root";
-$db_pwd="";
+$db_pwd="root";
 $db_name="new";
 
 /*------------connect.php---------------*/

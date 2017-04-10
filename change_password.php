@@ -2,8 +2,11 @@
 include_once "globals.php";
 include_once "session.php";
 
+if($logged_in) 	 
+{	
+	 //$m=beforemenu();
+	 $loginmenu=afterlogin();
 
-$loginmenu=afterlogin();
 if($caller=="self")
 {
 	$errors=array();
@@ -43,6 +46,11 @@ $s
 	     <button class='w3-input' type=submit>Change</button>
 	 </p>
 </form>";
+}
+else
+{
+	$content="Please <a href='index.php'>Login</a>";
+}
 $buff=file_get_contents('template.html');
 eval($buff);
 echo $page;
