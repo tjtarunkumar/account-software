@@ -4,35 +4,34 @@ include_once "session.php";
 
 if($logged_in) 	 
 {	
-	 //$m=beforemenu();
-	$loginmenu=afterlogin();
-if($caller=="self")
-{
-	$loginmenu=afterlogin();
-	$erros=array();
-	if(empty($commission_name))    $errors['commission_name']="<font color=red>Empty</font>";
-    else
+	$loginmenu=afterlogin("pay_commission");
+	$wel="Welcome Mr.<strong><font color=green> ".ucwords($username)."</font></strong>";
+	if($caller=="self")
 	{
-		$q = "select count(*) as total from pay_commission where commission_name='$commission_name'";
-		$qr = mysqli_query($conn,$q) or die($qr.mysqli_error($conn));
-		$r=mysqli_fetch_object($qr);
-		$total=$r->total;
-		if($total>0)
+		$erros=array();
+		if(empty($commission_name))    $errors['commission_name']="<font color=red>Empty</font>";
+		else
 		{
-			$errors['commission_name'] = "<font color='red'>Duplicate</font>";
+			$q = "select count(*) as total from pay_commission where commission_name='$commission_name'";
+			$qr = mysqli_query($conn,$q) or die($qr.mysqli_error($conn));
+			$r=mysqli_fetch_object($qr);
+			$total=$r->total;
+			if($total>0)
+			{
+				$errors['commission_name'] = "<font color='red'>Duplicate</font>";
+			}
+		} 
+		if(empty($errors))
+		{
+			$q="insert into pay_commission (commission_name)  values('$commission_name')";
+			$qr=mysqli_query($conn,$q) or die($q.mysqli_error($conn));
+			$id=mysqli_insert_id($conn);
+			$success= "<font color=green>Record Saved Successfully</font>";
 		}
-	} 
-	if(empty($errors))
-	{
-		$q="insert into pay_commission (commission_name)  values('$commission_name')";
-		$qr=mysqli_query($conn,$q) or die($q.mysqli_error($conn));
-		$id=mysqli_insert_id($conn);
-		$success= "<font color=green>Record Inserted Successfully</font>";
 	}
-}
 $content="
 <div class='w3-container w3-blue'>
-     <h2>Pay Commission Form</h2>
+     <h2>Add Pay Commission</h2>
 </div>
 $success
 <form class='w3-container'>
@@ -41,7 +40,7 @@ $success
          <input class='w3-input' type='text' name='commission_name' value='$commission_name'></p>$errors[commission_name]
      </p>
 	 <input type='hidden' name='caller' value='self'>
-     <button class='w3-input' type='submit'>Save </button> 
+     <button class='w3-input w3-blue' type='submit'>Save </button> 
 </form>";
 }
 else

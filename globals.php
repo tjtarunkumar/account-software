@@ -1,11 +1,12 @@
 <?php
 include_once"menu.php";
-include_once"juery.js";
+//include_once"sidebar.php";
+//include_once"jquery.js";
 
 $db_host="localhost";
 $db_user="root";
-$db_pwd="root";
-$db_name="new";
+$db_pwd="";
+$db_name="accounting";
 
 /*------------connect.php---------------*/
 

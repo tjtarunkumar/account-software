@@ -6,16 +6,16 @@ session_start();
 if($logged_in) 	 
 	{	
 	 //$m=beforemenu();
-	 $loginmenu=afterlogin();
+	 $loginmenu=afterlogin("dashboard");
 
-	 $wel="Welcome Mr.<strong><font color=green>$username</font></strong>";
+	 $wel="Welcome Mr.<strong><font color=green> ".ucwords($username)."</font></strong>";
     }
 else  
 	{
      unset($_SESSION['username']);
 	 unset($_SESSION['password']);
 	 session_destroy(); 
-	 $msg="<strong>Something Wrong. Please<a href=login.php>Try Again</a></strong>";			 
+	 $msg="<strong>Something Wrong. Please<a href=index.php>Try Again</a></strong>";			 
 	}    
 $content="
 <div class='acontent'>
